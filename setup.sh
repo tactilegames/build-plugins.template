@@ -25,13 +25,13 @@ echo "--------------------------"
 
 # Get the plugin name from the user
 echo "- Enter the new Build Plugin name:"
-echo "(Note: Use PascalCase and avoid using any suffix, the tool will take care of that.)"
+echo "Note: Use PascalCase and avoid using any suffix, the tool will take care of that"
 read plugin_name
 plugin_name=$(to_pascal_case "$plugin_name")
 plugin_name=$(echo "$plugin_name" | tr -d '[:space:]')
 
 echo "- Enter the GitHub repository URL:"
-echo "(Note: The URL is the one starting with https:// For example: https://github.com/tactilegames/build-plugins.template)"
+echo "Note: The URL is the one starting with https. For example: https://github.com/tactilegames/build-plugins.template"
 read github_url
 github_url=$(echo "$github_url" | tr -d '[:space:]')
 
