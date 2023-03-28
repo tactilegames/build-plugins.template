@@ -10,7 +10,6 @@ public class PLUGIN_NAMEStep : IStep
     public async Task Run(BuildOrder buildOrder, IPipelineService pipelineService)
     {
         pipelineService.LogInfo($"Hello World! from {StepId}");
-        pipelineService.LogInfo(buildOrder.ArtifactPath);
     }
     
 }
