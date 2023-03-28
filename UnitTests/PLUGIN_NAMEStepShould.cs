@@ -6,7 +6,7 @@ using TactilePipeline.Builders;
 
 namespace UnitTests;
 
-public class PLUGIN_NAMEShould
+public class PLUGIN_NAMEStepShould
 {
     [Test]
     public async Task Say_hello_world()
