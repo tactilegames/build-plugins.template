@@ -12,6 +12,8 @@ if [[ "$1" == "--verbose" ]]; then
   verbose=1
 fi
 
+echo ""
+echo ""
 echo "---------------------"
 echo "Name your new plugin"
 echo "---------------------"
