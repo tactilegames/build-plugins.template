@@ -20,9 +20,9 @@ fi
 
 echo ""
 echo ""
-echo "---------------------"
-echo "Name your new plugin"
-echo "---------------------"
+echo "-----------------------"
+echo "Set up your new plugin"
+echo "-----------------------"
 
 # Get the plugin name from the user
 echo "- Enter the new Build Plugin name:"
@@ -30,11 +30,23 @@ echo "(Note: Use PascalCase and avoid using any suffix, the tool will take care 
 read plugin_name
 plugin_name=$(to_pascal_case "$plugin_name")
 
+echo "- Enter the GitHub repository URL:"
+echo "(Note: The URL is the one starting with https:// For example: https://github.com/tactilegames/build-plugins.template)"
+read github_url
+
 if [[ $verbose -eq 1 ]]; then
   echo "---------------------"
   echo "Renaming Directories"
   echo "---------------------"
 fi
+
+# Replace Github URL in the Nuget configuration (.csproj)
+find . -type f ! -name "$(basename $0)" -not -path '*/.git/*' -exec grep -l 'HTTPS_GITHUB_REPO_URL' {} \; | while read file; do
+  sed -i '' "s|HTTPS_GITHUB_REPO_URL|$github_url|g" "$file"
+  if [[ $verbose -eq 1 ]]; then
+    echo "Replaced HTTPS_GITHUB_REPO_URL with $github_url in $file"
+  fi
+done
 
 # 1. Change directory names from inner to outer
 find . -type d -name '*PLUGIN_NAME*' -not -path '*/.git/*' | while read dir; do

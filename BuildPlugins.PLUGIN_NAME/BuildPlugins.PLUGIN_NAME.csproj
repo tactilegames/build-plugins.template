@@ -7,6 +7,8 @@
         <Authors>AUTHOR</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Version>0.0.1-alpha.0</Version>
+        <PackageProjectUrl>HTTPS_GITHUB_REPO_URL</PackageProjectUrl>
+        <RepositoryUrl>HTTPS_GITHUB_REPO_URL</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
