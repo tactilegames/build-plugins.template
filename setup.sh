@@ -90,5 +90,5 @@ echo "------------------------"
 echo "Enjoy coding!"
 echo "------------------------"
 
-rm "$new_parent_folder_name/setup.sh"
 open "$new_parent_folder_name"
+rm "$new_parent_folder_name/setup.sh"
