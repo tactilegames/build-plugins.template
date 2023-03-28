@@ -84,11 +84,11 @@ mv "$parent_folder_name" "$new_parent_folder_name"
 if [[ $verbose -eq 1 ]]; then
   echo "Renamed parent folder $parent_folder_name to $new_parent_folder_name"
 files
+fi
 
+open "$new_parent_folder_name"
+rm "$new_parent_folder_name/setup.sh"
 
 echo "------------------------"
 echo "Enjoy coding!"
 echo "------------------------"
-
-open "$new_parent_folder_name"
-rm "$new_parent_folder_name/setup.sh"
