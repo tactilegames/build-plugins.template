@@ -24,16 +24,32 @@ echo "| Set up your new plugin |"
 echo "--------------------------"
 
 # Get the plugin name from the user
-echo "- Enter the new Build Plugin name:"
-echo "Note: Use PascalCase and avoid using any suffix, the tool will take care of that"
-read plugin_name
-plugin_name=$(to_pascal_case "$plugin_name")
-plugin_name=$(echo "$plugin_name" | tr -d '[:space:]')
+# Get the plugin name from the user
+while true; do
+  echo "- Enter the new Build Plugin name:"
+  echo "Note: Use PascalCase and avoid using any suffix, the tool will take care of that"
+  read plugin_name
+  plugin_name=$(to_pascal_case "$plugin_name")
+  plugin_name=$(echo "$plugin_name" | tr -d '[:space:]')
+  if [ -z "$plugin_name" ]; then
+    echo "Plugin name cannot be empty. Please try again."
+  else
+    break
+  fi
+done
 
-echo "- Enter the GitHub repository URL:"
-echo "Note: The URL is the one starting with https. For example: https://github.com/tactilegames/build-plugins.template"
-read github_url
-github_url=$(echo "$github_url" | tr -d '[:space:]')
+# Get the GitHub repository URL
+while true; do
+  echo "- Enter the GitHub repository URL:"
+  echo "Note: The URL is the one starting with https. For example: https://github.com/tactilegames/build-plugins.template"
+  read github_url
+  github_url=$(echo "$github_url" | tr -d '[:space:]')
+  if [ -z "$github_url" ]; then
+    echo "GitHub repository URL cannot be empty. Please try again."
+  else
+    break
+  fi
+done
 
 # Replace Github URL in the Nuget configuration (.csproj)
 find . -type f ! -name "$(basename $0)" -not -path '*/.git/*' -exec grep -l 'HTTPS_GITHUB_REPO_URL' {} \; | while read file; do
