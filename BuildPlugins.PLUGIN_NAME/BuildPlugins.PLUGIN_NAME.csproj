@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Authors>AUTHOR</Authors>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.0.1-alpha.0</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="TactilePipeline" Version="1.0.0-alpha.14" />
+    </ItemGroup>
+
+</Project>
