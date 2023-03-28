@@ -12,9 +12,13 @@ if [[ "$1" == "--verbose" ]]; then
   verbose=1
 fi
 
+echo "---------------------"
+echo "Name your new plugin"
+echo "---------------------"
+
 # Get the plugin name from the user
-echo "Enter the new Build Plugin name:"
-echo "Note: avoid using any suffix, the tool will take care of that."
+echo "- Enter the new Build Plugin name:"
+echo "(Note: avoid using any suffix, the tool will take care of that.)"
 read plugin_name
 
 if [[ $verbose -eq 1 ]]; then
