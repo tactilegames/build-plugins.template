@@ -1,7 +1,7 @@
 #!/bin/bash
 
 to_pascal_case() {
-  echo "$1" | sed -e 's/\(\<[a-z]\)/\u\1/g' -e 's/[_\s]//g'
+  echo "$1" | awk '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}}1' OFS=""
 }
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
