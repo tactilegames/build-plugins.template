@@ -93,6 +93,7 @@ fi
 
 open "$new_parent_folder_name"
 rm "$new_parent_folder_name/setup.sh"
+rm "$new_parent_folder_name/setup.bat"
 
 echo "------------------------"
 echo "Enjoy coding!"
