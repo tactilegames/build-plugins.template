@@ -3,7 +3,7 @@ using TactilePipeline;
 
 namespace BuildPlugins.PLUGIN_NAME;
 
-public class PLUGIN_NAME : IStep
+public class PLUGIN_NAMEStep : IStep
 {
     public string StepId => "PLUGIN_NAMEStep";
 
