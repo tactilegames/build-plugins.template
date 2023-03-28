@@ -17,7 +17,7 @@ echo Name your new plugin
 echo ---------------------
 
 echo - Enter the new Build Plugin name:
-echo (Note: avoid using any suffix, the tool will take care of that.)
+echo (Note: Use PascalCase and avoid using any suffix, the tool will take care of that.)
 set /p plugin_name=
 
 for /f "tokens=* delims= " %%a in ("%plugin_name%") do (

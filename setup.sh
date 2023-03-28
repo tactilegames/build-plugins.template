@@ -26,7 +26,7 @@ echo "---------------------"
 
 # Get the plugin name from the user
 echo "- Enter the new Build Plugin name:"
-echo "(Note: avoid using any suffix, the tool will take care of that.)"
+echo "(Note: Use PascalCase and avoid using any suffix, the tool will take care of that.)"
 read plugin_name
 plugin_name=$(to_pascal_case "$plugin_name")
 
