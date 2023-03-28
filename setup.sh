@@ -3,6 +3,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR"
 
+echo "$SCRIPT_DIR"
+
 # Set the locale variables for sed compatibility
 export LC_ALL=C
 export LANG=C
@@ -74,7 +76,7 @@ if [[ $verbose -eq 1 ]]; then
 fi
 
 # 4. Rename the parent folder of the script
-parent_folder_name=$(basename $(pwd))
+parent_folder_name=$(basename "$(pwd)")
 cd ..
 new_parent_folder_name=$(echo "$parent_folder_name" | sed "s/PLUGIN_NAME/$plugin_name/g")
 mv "$parent_folder_name" "$new_parent_folder_name"
