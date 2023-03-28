@@ -1,5 +1,9 @@
 #!/bin/bash
 
+to_pascal_case() {
+  echo "$1" | sed -e 's/[_\s]\+\([a-zA-Z0-9]\)/\U\1/g' -e 's/^\(.\)/\U\1/'
+}
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR"
 
@@ -24,6 +28,7 @@ echo "---------------------"
 echo "- Enter the new Build Plugin name:"
 echo "(Note: avoid using any suffix, the tool will take care of that.)"
 read plugin_name
+plugin_name=$(to_pascal_case "$plugin_name")
 
 if [[ $verbose -eq 1 ]]; then
   echo "---------------------"
