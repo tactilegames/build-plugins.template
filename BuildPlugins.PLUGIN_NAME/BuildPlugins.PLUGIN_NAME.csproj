@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Authors>AUTHOR</Authors>
+        <Authors>Tactile Games</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Version>0.0.1-alpha.0</Version>
         <PackageProjectUrl>HTTPS_GITHUB_REPO_URL</PackageProjectUrl>
