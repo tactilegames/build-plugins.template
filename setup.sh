@@ -123,6 +123,9 @@ fi
 open "$new_parent_folder_name"
 rm "$new_parent_folder_name/setup.sh"
 rm "$new_parent_folder_name/setup.bat"
+rm -rf "$new_parent_folder_name/.git"
+cd $new_parent_folder_name
+git init
 
 echo "------------------------"
 echo "Enjoy coding!"
