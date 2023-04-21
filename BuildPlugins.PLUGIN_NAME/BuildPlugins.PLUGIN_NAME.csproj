@@ -6,6 +6,8 @@
         <Nullable>enable</Nullable>
         <Authors>Tactile Games</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyName>BuildPlugins.PLUGIN_NAME</AssemblyName>
+        <PackageId>BuildPlugins.PLUGIN_NAME</PackageId>
         <Version>0.0.1-alpha.0</Version>
         <PackageProjectUrl>HTTPS_GITHUB_REPO_URL</PackageProjectUrl>
         <RepositoryUrl>HTTPS_GITHUB_REPO_URL</RepositoryUrl>
