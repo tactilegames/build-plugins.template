@@ -127,6 +127,11 @@ rm -rf "$new_parent_folder_name/.git"
 cd $new_parent_folder_name
 git init
 
+# Update README.md
+mv README.md README_TMP.md
+mv README_TEMPLATE.md README.md
+rm README_TMP.md
+
 echo "------------------------"
 echo "Enjoy coding!"
 echo "------------------------"
