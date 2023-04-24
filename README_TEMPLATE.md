@@ -13,9 +13,13 @@ dependencies:
 
 # Steps
 
-* **PLUGIN_NAMEStep**
+* `PLUGIN_NAMEStep`
 
 ### Pipeline Value Required
 
 * `KEY_1`: Description about what KEY_1 is about
 * `KEY_2`: *(optional)* Description about what KEY_2 is about
+
+### Output Pipeline Values
+
+* `OUTPUT_KEY_1`: Description about what OUTPUT_KEY_1 is about
