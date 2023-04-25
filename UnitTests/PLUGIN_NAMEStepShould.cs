@@ -13,11 +13,12 @@ public class PLUGIN_NAMEStepShould
     {
         // Arrange
         var pipelineServiceMock = Substitute.For<IPipelineService>();
+        var buildResultStub = Substitute.For<IBuildResult>();
         var step = new PLUGIN_NAMEStep();
         var buildOrder = new BuildOrderBuilder().Build();
         
         // Act
-        await step.Run(buildOrder, pipelineServiceMock);
+        await step.Run(buildOrder, pipelineServiceMock, buildResultStub);
 
         // Assert
         pipelineServiceMock

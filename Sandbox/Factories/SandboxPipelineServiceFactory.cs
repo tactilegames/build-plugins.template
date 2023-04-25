@@ -9,12 +9,12 @@ public class SandboxPipelineServiceFactory
     {
         var pipelineService = Substitute.For<IPipelineService>();
         
-        ConfigureLogCalls(pipelineService);
+        ConfigureStub(pipelineService);
 
         return pipelineService;
     }
 
-    private static void ConfigureLogCalls(IPipelineService pipelineService)
+    private static void ConfigureStub(IPipelineService pipelineService)
     {
         // Configure to write in console when using LogInfo.
         pipelineService
