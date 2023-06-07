@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="TactilePipeline" Version="1.0.0-alpha.21" />
+      <PackageReference Include="TactilePipeline" Version="1.0.0-beta.1" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,6 @@ using BuildPlugins.PLUGIN_NAME;
 using NSubstitute;
 using NUnit.Framework;
 using TactilePipeline;
-using TactilePipeline.Builders;
 
 namespace UnitTests;
 
@@ -13,12 +12,10 @@ public class PLUGIN_NAMEStepShould
     {
         // Arrange
         var pipelineServiceMock = Substitute.For<IPipelineService>();
-        var buildResultStub = Substitute.For<IBuildResult>();
         var step = new PLUGIN_NAMEStep();
-        var buildOrder = new BuildOrderBuilder().Build();
-        
+
         // Act
-        await step.Run(buildOrder, pipelineServiceMock, buildResultStub);
+        await step.Run(pipelineServiceMock);
 
         // Assert
         pipelineServiceMock
