@@ -13,13 +13,29 @@ dependencies:
 
 # Steps
 
-* `PLUGIN_NAMEStep`
+* [PLUGIN_NAMEStep](#plugin_namestep)
+* [PLUGIN_NAMEWithOptionsStep](#plugin_namewithoptionsstep)
 
-### Pipeline Value Required
+## PLUGIN_NAMEStep
 
-* `KEY_1`: Description about what KEY_1 is about
-* `KEY_2`: *(optional)* Description about what KEY_2 is about
+A brief description about what this step does.
 
-### Output Pipeline Values
+---
+## PLUGIN_NAMEWithOptionsStep
 
-* `OUTPUT_KEY_1`: Description about what OUTPUT_KEY_1 is about
+A brief description about what this step does.
+
+**Pipeline Values**
+
+| Key       | Type    | Description                          | Default Value  | Required |
+| --------- | ------- | ------------------------------------ | -------------- | -------- |
+| MESSAGE   | string  | A Message to display in the console  |                | Yes      |
+| UPPERCASE | string  | Should the message be in uppercase   | false          |          |
+
+**Example**
+
+```yml
+values:
+  MESSAGE: "Hello World"
+  UPPERCASE: true
+```

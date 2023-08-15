@@ -21,14 +21,23 @@ public class ExampleOptions : Options
 {
     [PipelineValue("MESSAGE", "A Message to display in the console")]
     public string Message { get; set; }
+
+    [PipelineValue("UPPERCASE", "Should the message be in uppercase")]
+    public bool IsUpperCase { get; set; } = false;
 }
 
 public class PLUGIN_NAMEWithOptionsStep : IStep<ExampleOptions>
 {
-    public string StepId => "ExampleWithOptionsStep";
+    public string StepId => "PLUGIN_NAMEWithOptionsStep";
     
     public async Task Run(ExampleOptions options, IPipelineService pipelineService)
     {
-        pipelineService.LogInfo($"Displaying Message from {StepId}: {options.Message}");
+        var message = options.Message;
+        if (options.IsUpperCase)
+        {
+            message = message.ToUpper();
+        }
+        
+        pipelineService.LogInfo($"Displaying Message from {StepId}: {message}");
     }
 }
