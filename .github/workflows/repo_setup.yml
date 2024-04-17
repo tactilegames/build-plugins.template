@@ -25,16 +25,26 @@ jobs:
             echo "Renamed file $file to $new_file"
           done
 
-      - name: "Echo"
+      - name: Delete Setup Workflow
+        run: rm .github/workflows/repo_setup.yml
+
+      - name: Follow Project on CircleCI
+        env:
+          CIRCLE_TOKEN: ${{ secrets.CIRCLE_CI_ADMIN_TOKEN_OLD }}
         run: |
-          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
-          echo "REPO_NAME: $REPO_NAME"
-          echo "FORMATTED_NAME: $FORMATTED_NAME"
+          FOLLOW_ENDPOINT="https://circleci.com/api/v1.1/project/github/${GITHUB_REPOSITORY}/follow"
+
+          response=$(curl -X POST $FOLLOW_ENDPOINT \
+                     -H "Circle-Token: $CIRCLE_TOKEN" \
+                     -H "Content-Type: application/json" \
+                     -d '{"first_build": "true"}')
+
+          echo "Response from CircleCI: $response"
 
       - name: Commit and Push Changes
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git add .
-          git commit -m "Replace templated text with actual values"
-          git push origin HEAD:master  # Replace 'main' with 'master' if your default branch is named 'master'
+          git commit -m "[skip ci] Project Setup by Github Action"
+          git push origin HEAD:master
