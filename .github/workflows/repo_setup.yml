@@ -1,11 +1,10 @@
 name: Repository Setup on Creation
 
-on: create
+on: push
 
 jobs:
   setup-repo:
     runs-on: ubuntu-latest
-    if: github.event.ref_type == 'repository'
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
