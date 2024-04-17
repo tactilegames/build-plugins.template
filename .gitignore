@@ -6,3 +6,6 @@ riderModule.iml
 /_ReSharper.Caches/
 .DS_Store
 SanboxRunner/
+**/TestResults/*
+/out/
+.vscode

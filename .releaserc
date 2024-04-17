@@ -1,0 +1,99 @@
+{
+  "branches": [
+    "main",
+    "master"
+  ],
+  "plugins": [
+    "@semantic-release/github",
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "releaseRules": [
+          {
+            "type": "feat",
+            "release": "minor"
+          },
+          {
+            "type": "fix",
+            "release": "patch"
+          },
+          {
+            "type": "perf",
+            "release": "patch"
+          },
+          {
+            "type": "revert",
+            "release": "patch"
+          },
+          {
+            "breaking": true,
+            "release": "major"
+          }
+        ],
+        "parserOpts": {
+          "noteKeywords": [
+            "BREAKING CHANGE",
+            "BREAKING CHANGES"
+          ]
+        }
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "parserOpts": {
+          "noteKeywords": [
+            "BREAKING CHANGE",
+            "BREAKING CHANGES"
+          ]
+        }
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogTitle": "## BuildPlugins.CIExample",
+        "changelogFile": "CHANGELOG.md"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "node ./.ci/readme_replacement.js ${nextRelease.version}"
+      }
+    ],
+    [
+      "@droidsolutions-oss/semantic-release-update-file",
+      {
+        "files": [
+          {
+            "path": [
+              "Source/Source.csproj"
+            ],
+            "type": "xml",
+            "replacements": [
+              {
+                "key": "Version",
+                "value": "${nextRelease.version}"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "@droidsolutions-oss/semantic-release-nuget",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+          "Source/Source.csproj",
+          "README.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ],
+  "projectPath": "Source/Source.csproj",
+  "nugetServer": "https://nuget.pkg.github.com/tactilegames/index.json"
+}

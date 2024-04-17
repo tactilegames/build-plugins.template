@@ -1,0 +1,157 @@
+version: 2.1
+
+# Definitions
+setup: &setup
+  resource_class: small
+  working_directory: ~/repo
+  docker:
+    - image: gonzalezmartin90/dotnet-node:6.0_20.12
+
+contexts: &contexts
+  context: NUGET_BUILD_PIPELINE
+
+# Define workflows
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build:
+          <<: *contexts
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+      - test:
+          <<: *contexts
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+          requires:
+            - build
+
+  build-test-and-publish:
+    jobs:
+      - build:
+          <<: *contexts
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - test:
+          <<: *contexts
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - publish:
+          <<: *contexts
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only:
+                - main
+                - master
+
+# Jobs
+jobs:
+  ## Build
+  build:
+    <<: *setup
+    # Define steps
+    steps:
+      # Checkout code
+      - checkout
+
+      # Create NuGet configuration
+      - run:
+          name: Create NuGet configuration
+          command: echo -e $NUGET_CONFIG > NuGet.config
+
+      # Restore dependencies
+      - run:
+          name: Restore dependencies
+          command: dotnet restore
+
+      - run:
+          name: Build Project
+          command: dotnet build --configuration Release
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  ## Test
+  test:
+    <<: *setup
+    # Define steps
+    steps:
+      # Attach workspace from build job
+      - attach_workspace:
+          at: .
+
+      # Update PATH
+      - run:
+          name: Update PATH
+          command: echo 'export PATH="$PATH:/root/.dotnet/tools"' >> $BASH_ENV # PUT THIS IN THE DOCKER IMAGE
+
+      # Install trx2junit tool
+      - run:
+          name: Run dotnet tool
+          command: dotnet tool install --global trx2junit # PUT THIS IN THE DOCKER IMAGE
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: dotnet test -l "trx;LogFileName=test-output.trx"
+
+      # Move test files to folder
+      - run:
+          name: Move test files to folder
+          command: |
+            mkdir -p ./test-results
+            find . -name "test-output.trx" -exec mv {} ./test-results/test-result.trx \;
+          when: always
+
+      # Convert trx to junit
+      - run:
+          name: Convert trx to junit
+          command: trx2junit ./test-results/test-result.trx --output ./test-results/
+          when: always
+
+      # Store test results
+      - store_test_results:
+          path: ./test-results
+
+      # Store artifacts
+      - store_artifacts:
+          path: ./test-results
+          destination: test-results
+
+  ## Publish
+  publish:
+    <<: *setup
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Execute Semantic Release and Publish
+          command: |
+            npm install -g semantic-release@23.0.8
+            npm install -g @semantic-release/changelog@6.0.3
+            npm install -g @semantic-release/git@10.0.1
+            npm install -g @semantic-release/error@4.0.0
+            npm install -g @semantic-release/exec@6.0.3
+            npm install -g @semantic-release/github@10.0.3
+            npm install -g @semantic-release/release-notes-generator@13.0.0
+            npm install -g @droidsolutions-oss/semantic-release-nuget@2.0.1
+            npm install -g @droidsolutions-oss/semantic-release-update-file@1.4.0
+            GITHUB_TOKEN=$GITHUB_OAUTH_TOKEN semantic-release
