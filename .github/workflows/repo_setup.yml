@@ -30,6 +30,9 @@ jobs:
           rm README.md
           mv README_TEMPLATE.md README.md
 
+      - name: Replace in Source.csproj HTTPS_GITHUB_REPO_URL
+        run: sed -i 's/HTTPS_GITHUB_REPO_URL/${{ github.event.repository.html_url }}/g' Source/Source.csproj
+
       - name: Delete Setup Workflow
         run: rm .github/workflows/repo_setup.yml
 
