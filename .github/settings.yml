@@ -1,12 +1,40 @@
 repository:
-  allow_squash_merge: false
+  # See https://developer.github.com/v3/repos/#edit for all available settings.
+
+  # Either `true` to make the repository private, or `false` to make it public.
+  private: false
+
+  # Either `true` to enable issues for this repository, `false` to disable them.
+  has_issues: true
+
+  # Either `true` to enable the wiki for this repository, `false` to disable it.
+  has_wiki: true
+
+  # Either `true` to enable downloads for this repository, `false` to disable them.
+  has_downloads: true
+
+  # Updates the default branch for this repository.
+  default_branch: master
+
+  # Either `true` to allow squash-merging pull requests, or `false` to prevent
+  # squash-merging.
+  allow_squash_merge: true
+
+  # Either `true` to allow merging pull requests with a merge commit, or `false`
+  # to prevent merging pull requests with merge commits.
   allow_merge_commit: true
-  use_squash_pr_title_as_default: true
-  squash_merge_commit_message: "PR_BODY"
+
+  # Either `true` to allow rebase-merging pull requests, or `false` to prevent
+  # rebase-merging.
+  allow_rebase_merge: true
+
+  squash_merge_commit_title: PR_TITLE
+
+  squash_merge_commit_message: PR_BODY
 
 branches:
   - name: master
-    # https://docs.github.com/en/rest/reference/repos#update-branch-protection
+    # Branch Protection settings. Set to null to disable
     protection:
       # Required. Require at least one approving review on a pull request, before merging. Set to null to disable.
       required_pull_request_reviews:
@@ -26,5 +54,12 @@ branches:
         strict: true
         # Required. The list of status checks to require in order to merge into this branch
         contexts: []
+      # Required. Enforce all configured restrictions for administrators. Set to true to enforce required status checks for repository administrators. Set to null to disable.
+      enforce_admins: null
       # Prevent merge commits from being pushed to matching branches
       required_linear_history: true
+      # Required. Restrict who can push to this branch. Team and user restrictions are only available for organization-owned repositories. Set to null to disable.
+      restrictions:
+        apps: []
+        users: []
+        teams: []
