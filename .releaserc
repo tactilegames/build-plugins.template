@@ -52,7 +52,7 @@
     [
       "@semantic-release/changelog",
       {
-        "changelogTitle": "## BuildPlugins.CIExample",
+        "changelogTitle": "# BuildPlugins.PLUGIN_NAME",
         "changelogFile": "CHANGELOG.md"
       }
     ],
