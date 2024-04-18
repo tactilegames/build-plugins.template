@@ -1,0 +1,71 @@
+name: Build, Test and Publish
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: true
+
+jobs:
+  build_test_push:
+    name: Build, Test and Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "20.x"
+
+      - name: Setup Tactile NuGet Source
+        run: dotnet nuget add source "${{ secrets.NUGET_SOURCE_URL }}" --name "github" --username USERNAME --password ${{ secrets.NUGET_API_TOKEN }} --store-password-in-clear-text
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build Project
+        run: dotnet build --configuration Release
+
+      - name: Install trx2junit
+        run: dotnet tool install --global trx2junit
+
+      - name: Run tests
+        run: dotnet test --no-restore -l "trx;LogFileName=test-output.trx"
+
+      - name: Move test files to folder
+        if: always()
+        run: |
+          mkdir -p ./test-results
+          find . -name "test-output.trx" -exec mv {} ./test-results/test-result.trx \;
+          trx2junit ./test-results/test-result.trx --output ./test-results/
+
+      - name: Publish NuGEt Package
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_TOKEN: ${{ secrets.NUGET_API_TOKEN }}
+        run: |
+           npm install -g semantic-release@23.0.8
+           npm install -g @semantic-release/changelog@6.0.3
+           npm install -g @semantic-release/git@10.0.1
+           npm install -g @semantic-release/error@4.0.0
+           npm install -g @semantic-release/exec@6.0.3
+           npm install -g @semantic-release/github@10.0.3
+           npm install -g @semantic-release/release-notes-generator@13.0.0
+           npm install -g @droidsolutions-oss/semantic-release-nuget@2.0.1
+           npm install -g @droidsolutions-oss/semantic-release-update-file@1.4.0
+           semantic-release
+
+      - name: Archive test results
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: test-results
+          path: ./test-results/
+

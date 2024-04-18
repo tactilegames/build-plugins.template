@@ -25,21 +25,13 @@ jobs:
             echo "Renamed file $file to $new_file"
           done
 
+      - name: Rename README.md
+        run: |
+          rm README.md
+          mv README_TEMPLATE.md README.md
+
       - name: Delete Setup Workflow
         run: rm .github/workflows/repo_setup.yml
-
-      - name: Follow Project on CircleCI
-        env:
-          CIRCLE_TOKEN: ${{ secrets.CIRCLE_CI_ADMIN_TOKEN_OLD }}
-        run: |
-          FOLLOW_ENDPOINT="https://circleci.com/api/v1.1/project/github/${GITHUB_REPOSITORY}/follow"
-
-          response=$(curl -X POST $FOLLOW_ENDPOINT \
-                     -H "Circle-Token: $CIRCLE_TOKEN" \
-                     -H "Content-Type: application/json" \
-                     -d '{"first_build": "true"}')
-
-          echo "Response from CircleCI: $response"
 
       - name: Commit and Push Changes
         run: |
