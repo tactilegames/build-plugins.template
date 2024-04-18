@@ -69,3 +69,11 @@ jobs:
           name: test-results
           path: ./test-results/
 
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: NUnit Test Results
+          path: '**/test-result.trx'
+          reporter: 'dotnet-trx'
+
