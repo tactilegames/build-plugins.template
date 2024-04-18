@@ -6,8 +6,8 @@
         <Nullable>enable</Nullable>
         <Authors>Tactile Games</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>Source</PackageId>
-        <Version>0.0.1-alpha.0</Version>
+        <PackageId>BuildPlugins.PLUGIN_NAME</PackageId>
+        <Version>0.0.1</Version>
         <PackageProjectUrl>HTTPS_GITHUB_REPO_URL</PackageProjectUrl>
         <RepositoryUrl>HTTPS_GITHUB_REPO_URL</RepositoryUrl>
         <RootNamespace>BuildPlugins.PLUGIN_NAME</RootNamespace>
