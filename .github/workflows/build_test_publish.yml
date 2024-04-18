@@ -46,7 +46,7 @@ jobs:
           find . -name "test-output.trx" -exec mv {} ./test-results/test-result.trx \;
           trx2junit ./test-results/test-result.trx --output ./test-results/
 
-      - name: Publish NuGEt Package
+      - name: Publish NuGet Package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NUGET_TOKEN: ${{ secrets.NUGET_API_TOKEN }}
