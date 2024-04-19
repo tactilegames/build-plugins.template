@@ -32,6 +32,10 @@ repository:
 
   squash_merge_commit_message: PR_BODY
 
+collaborators:
+  - username: tactile-deploy
+    permission: admin
+
 branches:
   - name: master
     # Branch Protection settings. Set to null to disable
