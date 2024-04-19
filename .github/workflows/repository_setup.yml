@@ -19,7 +19,7 @@ jobs:
       - name: Rename Directories
         run: |
           find . -type d -name '*PLUGIN_NAME*' -not -path '*/.git/*' | while read dir; do
-            new_dir=$(echo "$dir" | sed "s/PLUGIN_NAME/$plugin_name/g")
+            new_dir=$(echo "$dir" | sed "s/PLUGIN_NAME/$FORMATTED_NAME/g")
             mv "$dir" "$new_dir"
             if [[ $verbose -eq 1 ]]; then
               echo "Moved directory $dir to $new_dir"
