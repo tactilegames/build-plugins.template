@@ -1,6 +1,8 @@
 repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
 
+  topics: build-plugins
+
   # Updates the default branch for this repository.
   default_branch: master
 
