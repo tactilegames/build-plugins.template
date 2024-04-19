@@ -13,7 +13,7 @@ jobs:
         run: |
           REPO_NAME=$(echo $GITHUB_REPOSITORY | awk -F 'build-plugins.' '{print $2}')
           FORMATTED_NAME=$(echo "$REPO_NAME" |  awk -F '-' '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}}1' OFS="")
-          find . -type f ! -path '*/\.*' -exec sed -i "s/PLUGIN_NAME/$FORMATTED_NAME/g" {} +
+          find . -type f -exec sed -i "s/PLUGIN_NAME/$FORMATTED_NAME/g" {} +
 
       - name: Rename Files
         run: |
