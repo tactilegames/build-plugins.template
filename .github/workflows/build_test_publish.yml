@@ -16,7 +16,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BUILD_PLUGINS_GITHUB_TOKEN }}
+
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "6.0.x"
@@ -48,7 +52,7 @@ jobs:
 
       - name: Publish NuGet Package
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           NUGET_TOKEN: ${{ secrets.NUGET_API_TOKEN }}
         run: |
            npm install -g semantic-release@23.0.8
