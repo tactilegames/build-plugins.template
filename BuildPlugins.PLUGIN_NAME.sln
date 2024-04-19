@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Source", "Source\Source.csproj", "{B667A097-B4D5-4C14-BD77-6C010FC83D8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildPlugins.PLUGIN_NAME", "BuildPlugins.PLUGIN_NAME\BuildPlugins.PLUGIN_NAME.csproj", "{B667A097-B4D5-4C14-BD77-6C010FC83D8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{026E5264-4663-40C9-ADB3-6BBAED1781E7}"
 EndProject

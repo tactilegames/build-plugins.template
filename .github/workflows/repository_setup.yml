@@ -4,22 +4,36 @@ on: push
 
 jobs:
   setup-repo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest      
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Replace Templated Text in File Contents
+      - name: Format Plugin Name
+        id: format # Give this step an id for referencing later
         run: |
           REPO_NAME=$(echo $GITHUB_REPOSITORY | awk -F 'build-plugins.' '{print $2}')
           FORMATTED_NAME=$(echo "$REPO_NAME" |  awk -F '-' '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}}1' OFS="")
+          echo "FORMATTED_NAME=$FORMATTED_NAME" >> $GITHUB_ENV      
+
+      - name: Rename Directories
+        run: |
+          find . -type d -name '*PLUGIN_NAME*' -not -path '*/.git/*' | while read dir; do
+            new_dir=$(echo "$dir" | sed "s/PLUGIN_NAME/$plugin_name/g")
+            mv "$dir" "$new_dir"
+            if [[ $verbose -eq 1 ]]; then
+              echo "Moved directory $dir to $new_dir"
+            fi
+          done
+
+      - name: Replace Templated Text in File Contents
+        run: |                    
           find . -type f ! -path '*/\.*' -exec sed -i "s/PLUGIN_NAME/$FORMATTED_NAME/g" {} +
           sed -i "s/PLUGIN_NAME/$FORMATTED_NAME/g" .releaserc
 
       - name: Rename Files
         run: |
-          REPO_NAME=$(echo $GITHUB_REPOSITORY | awk -F 'build-plugins.' '{print $2}')
-          FORMATTED_NAME=$(echo "$REPO_NAME" |  awk -F '-' '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}}1' OFS="")
+          
           find . -type f -name '*PLUGIN_NAME*' ! -path '*/\.*' | while read file; do
             new_file=$(echo "$file" | sed "s/PLUGIN_NAME/$FORMATTED_NAME/g")
             mv "$file" "$new_file"
@@ -31,8 +45,8 @@ jobs:
           rm README.md
           mv README_TEMPLATE.md README.md
 
-      - name: Replace in Source.csproj HTTPS_GITHUB_REPO_URL
-        run: sed -i.bak 's#HTTPS_GITHUB_REPO_URL#${{ github.event.repository.html_url }}#g' Source/Source.csproj && rm Source/Source.csproj.bak
+      - name: Replace HTTPS_GITHUB_REPO_URL on csproj file
+        run: sed -i.bak 's#HTTPS_GITHUB_REPO_URL#${{ github.event.repository.html_url }}#g' BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro && rm BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro.bak
 
       - name: Setting up Repository settings.yml
         run: mv .github/settings_setup.yml .github/settings.yml

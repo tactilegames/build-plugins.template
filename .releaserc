@@ -68,7 +68,7 @@
         "files": [
           {
             "path": [
-              "Source/Source.csproj"
+              "BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro"
             ],
             "type": "xml",
             "replacements": [
@@ -87,13 +87,13 @@
       {
         "assets": [
           "CHANGELOG.md",
-          "Source/Source.csproj",
+          "BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro",
           "README.md"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]
   ],
-  "projectPath": "Source/Source.csproj",
+  "projectPath": "BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro",
   "nugetServer": "https://nuget.pkg.github.com/tactilegames/index.json"
 }
