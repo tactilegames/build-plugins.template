@@ -46,7 +46,7 @@ jobs:
           mv README_TEMPLATE.md README.md
 
       - name: Replace HTTPS_GITHUB_REPO_URL on csproj file
-        run: sed -i.bak 's#HTTPS_GITHUB_REPO_URL#${{ github.event.repository.html_url }}#g' BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro && rm BuildPlugins.PLUGIN_NAME/BuildPlugins.PLUGIN_NAME.cspro.bak
+        run: sed -i.bak 's#HTTPS_GITHUB_REPO_URL#${{ github.event.repository.html_url }}#g' BuildPlugins.${FORMATTED_NAME}/BuildPlugins.${FORMATTED_NAME}.csproj && rm BuildPlugins.${FORMATTED_NAME}/BuildPlugins.${FORMATTED_NAME}.csproj.bak
 
       - name: Setting up Repository settings.yml
         run: mv .github/settings_setup.yml .github/settings.yml
